@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import OverlayMenu from "./OverlayMenu";
 import Logo from "../assets/Logo.png"
 import { TfiMenuAlt } from "react-icons/tfi";
@@ -12,6 +12,64 @@ export default function Navbar(){
 
 const [menuopen , setMenuOpen] = useState(false);
 const [visible , setVisible] = useState(true);
+const [forceVisible , setForceVisible] = useState(false);
+
+const lastScrollY = useRef(0);
+const timerId = useRef(null);
+
+useEffect(()=>{
+const homeSection = document.querySelector("#home");
+const observer = new IntersectionObserver(
+  ([entry]) => {
+    if (entry.isIntersecting) {
+      setForceVisible(true);
+      setVisible(true);
+      
+    }else{
+      setForceVisible(false);
+
+    }
+  },{threshold: 0.1}
+)
+if(homeSection) observer.observe(homeSection);
+return() => {
+  if(homeSection) observer.observe(homeSection);
+}
+},[])
+
+useEffect(()=>{
+  const handleScroll = () =>{
+    if (forceVisible) {
+      setVisible(true);
+      return 
+      
+    }
+    // scroll down for visibility
+  const currentScrollY = window.scrollY;
+  if (currentScrollY > lastScrollY.current) {
+    setVisible(false);
+    
+  }else{
+    setVisible(true);
+
+    if(timerId.current) clearTimeout(timerId.current);
+    timerId.current = setTimeout(()=>{
+      setVisible(false);
+    },3000)
+  }
+  lastScrollY.current = currentScrollY;
+
+
+  }
+ window.addEventListener("scroll" , handleScroll, {passive:true})
+ return () =>{
+  window.removeEventListener("scroll" , handleScroll)
+  if(timerId.current) clearTimeout(timerId.current)
+ }
+
+
+},[forceVisible])
+
 
   return(
     <>
@@ -41,7 +99,7 @@ const [visible , setVisible] = useState(true);
 
     <div className="hidden lg:block">
     <a href="#contact"
-className=" bg-gradient-to-r from-pink-700 to-blue-500 text-white px-5 py-2 rounded-full font-medium shadow-lg hover:opacity-90 transition-opacity duration-300"
+    className="bg-gradient-to-r from-pink-700 to-blue-500 text-white px-5 py-2 rounded-full font-medium shadow-lg hover:opacity-90 transition-opacity duration-300"
 
     >
 

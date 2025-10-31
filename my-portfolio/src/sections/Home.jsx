@@ -1,10 +1,13 @@
-import React from 'react'
+export default function Home(){
+  return(
+    <section
+    id="home" className="w-full h-screen relative bg-black overflow-hidden"
+    
+    >
 
-const Home = () => {
-  return (
-    <div className='w-full h-screen'>
-        Home</div>
+
+
+
+    </section>
   )
 }
-
-export default Home
