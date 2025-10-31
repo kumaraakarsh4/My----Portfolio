@@ -126,11 +126,29 @@ return() => clearTimeout(timeout);
              I architect and deploy robust, end-to-end software solutions, seamlessly bridging front-end user experience with scalable back-end logic and systems. 
             </motion.p>
 
-            <div className="">
-            <a href="">View My Work</a>
-            <a href="">My resume</a>
+            <motion.div className="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-6"
+            initial={{opacity:0}}
+            animate={{opacity:1}}
+            transition={{delay:0.8 , duration: 0.8}}
+            
+            
+            >
+            <a href="Projects"
+            className="px-6 py-3 rounded-full font-medium text-lg text-white
+             bg-gradient-to-r from-[#1cd8d2] via-[#00bf8f] to-[#302b63]
+             shadow-lg hover:scale-105 transition-all"
+            
+            >View My Work</a>
+            <a href="/Aakarsh Kumar.pdf"
+            download 
+            className="px-6 py-3 rounded-full font-medium text-lg text-white
+             bg-gradient-to-r from-[#a3bdbc] via-[#1b16c4] to-[#5f5b8d]
+             shadow-lg hover:scale-105 transition-all"
+            
+            
+            >My resume</a>
 
-            </div>
+            </motion.div>
 
 
 
