@@ -1,4 +1,5 @@
 import CustomCursor from "./components/CustomCursor";
+import IntroAnimation from "./components/IntroAnimation";
 import Navbar from "./components/Navbar";
 import ParticlesBackground from "./components/ParticlesBackground";
 import About from "./sections/About";
@@ -8,10 +9,18 @@ import Footer from "./sections/Footer";
 import Home from "./sections/Home";
 import Project from "./sections/Project";
 import Skills from "./sections/Skills";
-import Testimonials from "./sections/Testimonials";
+import React from "react";
 
 export default function App(){
+  const [introDone , setIntroDone] = React.useState(false);
   return(
+    // the line means when intro false
+  <>
+  {!introDone && <IntroAnimation onFinish={()=> setIntroDone(true)}/>}
+
+    {introDone && (
+
+
     <div className="realtive gradient text-white">
       <CustomCursor/>
       {/* <ParticlesBackground/> */}
@@ -21,7 +30,7 @@ export default function App(){
       <Skills/>
       <Project/>
       <Experience/>
-      <Testimonials/>
+      
       <Conatct/>
       <Footer/>
 
@@ -34,5 +43,7 @@ export default function App(){
 
 
     </div>
+    )}
+    </>
   )
 }
