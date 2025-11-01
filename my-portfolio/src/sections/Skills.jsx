@@ -106,13 +106,22 @@ useEffect(()=>{
     const dt = (now-last)/1000;
     last= now;
     let next = x.get() + SPEED*dir*dt;
-    const loop = trackRef.current?.scrollwidth/2 || 0; 
+    const loop = trackRef.current?.scrollWidth/2 || 0; 
+    if(loop){
+      if(next<= -loop) next+= loop;
+       if(next >= 0 ) next -= loop;
+    }
+    x.set(next); // we update position
+    id= requestAnimationFrame(tick); // to start the animation 
 
   }
+  id= requestAnimationFrame(tick);
+  return ()=> cancelAnimationFrame(id);
+  
 
 
 
-})
+},[dir,x])
 
 
   return(
@@ -145,7 +154,9 @@ useEffect(()=>{
   <div className="relative w-full overflow-hidden">
     <motion.div
     ref={trackRef}
-    className="flex gap-10 text-6xl text-[#1cd8d2]">
+    className="flex gap-10 text-6xl text-[#1cd8d2]"
+    style={{x, whiteSpace:"nowrap" , willChange:"transform"}}
+    >
       {repeated.map((s,i)=>(
         <div key={i} className="flex flex-col items-center gap-2 min-w-[120px]"
         aria-label={s.name}
