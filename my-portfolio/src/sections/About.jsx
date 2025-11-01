@@ -9,15 +9,15 @@ export default function About(){
   ]
   const glows = [
     "-top-10 -left-10 w-[360px] h-[360px] opacity-20 blur-[120px]",
-    "bottom-0 right-10 w-[420px] opacity-15 blur-[140px] delay-300",
-    "top-1/2 left-1/2 -translate-x-1/2 w-[220px] h-[220px] opacity-10 blur-[100px]",
+    "bottom-0 right-10 w-[420px] h-[420px] opacity-15 blur-[140px] delay-300",
+  
   ]
   return(
     <section id="about"
     className="min-h-screen w-full flex items-center justify-center relative bg-black text-white overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         {glows.map((c,i)=>(
-       <div key={i} className={`absolute rounded-full bg-gradient-to-r from-[#302b63] via-[#00bf8f] to-[#1cd8d2] animation-pulse ${c}`}/>
+       <div key={i} className={`absolute rounded-full bg-gradient-to-r from-[#302b63] via-[#00bf8f] to-[#1cd8d2] animate-pulse ${c}`}/>
 
         ))}
 
@@ -31,7 +31,7 @@ export default function About(){
        viewport={{once:true , amount:0.4}}
         >
           <motion.div className="relative w-[160px] h-[160px] md:w-[200px] md:h-[200px]
-          rounded-2xl overflow-hidden shadow-2xl bg:gradient-to-br from-[#272637] to-[#302b63]/20 border border-[#02010b]
+          rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-[#272637] to-[#302b63]/20 border border-[#02010b]
 
           
           "
