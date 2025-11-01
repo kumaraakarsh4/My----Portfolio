@@ -13,7 +13,8 @@ import { FaGithub } from "react-icons/fa";
 import { SiMysql } from "react-icons/si";
 import { SiSpringboot } from "react-icons/si";
 import { SiAngular } from "react-icons/si";
-import {motion} from "framer-motion";
+import {motion, useMotionValue} from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 
 
@@ -44,9 +45,70 @@ export default function Skills(){
 
   ];
   const repeated = [...skills , ...skills]
+// the icon is moving right to left
+  const [dir, setDir] = useState(-1);
+  // it is skill section is visible or not
+  const [active , setActive] = useState(false);
+  // this section ref is made for skill section
+  const sectionRef = useRef(null);
+  //we made for moving icon to store the value 
+  const trackRef = useRef(null);
+  const touchY = useRef(null);
+  // we use for motion tracking for moving horizentally smooth motion it provide
+  const x = useMotionValue(0);
+  // useeffect provide me actual dom refrence 
+  useEffect(()=>{
+const el = sectionRef.current;
+if(!el) return; 
+const io = new IntersectionObserver((
+  [entry]) => {
+    setActive(entry.isIntersecting && entry.intersectionRatio > 0.1);
+
+  },
+{threshold:[0.1]}
+)
+io.observe(el);
+return() => io.disconnect();
+},[])
+
+useEffect(()=>{
+if(!active) return;
+const onwheel =(e) => setDir(e.deltaY > 0 ? -1 : 1);
+const onTouch = (e) => (touchY.current = e.touches[0].clientY);
+const onTouchMove = (e) => {
+  if(touchY.current == null) return;
+
+  const delta = e.touches[0].clientY - touchY.current;
+  setDir(delta > 0 ? 1 : -1);
+  touchY.current=e.touches[0].clientY;
+};
+window.addEventListener('wheel', onwheel , {passive:true});
+window.addEventListener('touchstart' , onTouch , {passive:true});
+window.addEventListener('touchmove' , onTouchMove , {passive:true});
+return()=> {
+  window.removeEventListener('wheel', onwheel );
+window.removeEventListener('touchstart' , onTouch);
+window.removeEventListener('touchmove' , onTouchMove );
+
+
+}
+
+
+},[active]);
+
+
+useEffect(()=>{
+
+
+  
+})
+
+
   return(
 
-    <section id="skills" className="h-1/2 w-full pb-8 flex flex-col items-center justify-center relative bg-black text-white overflow-hidden" >
+    <section id="skills" 
+    ref={sectionRef}
+    className="h-1/2 w-full pb-8 flex flex-col items-center justify-center relative bg-black text-white overflow-hidden" >
    <div className="absolute inset-0 pointer-events-none">
     <div className="absolute top-1/4 left-0 w-[300px] h-[300px] rounded-full bg-gradient-to-r from-[#302b63] via-[#00bf8f] to-[#1cd8d2]
     opacity-20 blur-[120px] animate-pulse
@@ -70,7 +132,9 @@ export default function Skills(){
 
    </motion.p>
   <div className="relative w-full overflow-hidden">
-    <motion.div className="flex gap-10 text-6xl text-[#1cd8d2]">
+    <motion.div
+    ref={trackRef}
+    className="flex gap-10 text-6xl text-[#1cd8d2]">
       {repeated.map((s,i)=>(
         <div key={i} className="flex flex-col items-center gap-2 min-w-[120px]"
         aria-label={s.name}
