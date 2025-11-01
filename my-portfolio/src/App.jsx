@@ -3,11 +3,11 @@ import IntroAnimation from "./components/IntroAnimation";
 import Navbar from "./components/Navbar";
 import ParticlesBackground from "./components/ParticlesBackground";
 import About from "./sections/About";
-import Conatct from "./sections/Conatct";
+import Conatct from "./sections/Contact";
 import Experience from "./sections/Experience";
 import Footer from "./sections/Footer";
 import Home from "./sections/Home";
-import Project from "./sections/Project";
+import Project from "./sections/Projects";
 import Skills from "./sections/Skills";
 import React from "react";
 
