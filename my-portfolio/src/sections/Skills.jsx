@@ -96,11 +96,22 @@ window.removeEventListener('touchmove' , onTouchMove );
 
 },[active]);
 
+// by ths use effect i am storing last frame motion // now give me cureent frame
 
 useEffect(()=>{
+  let id;
+  let last = performance.now();
+  const SPEED = 80;
+  const tick = (now) => {
+    const dt = (now-last)/1000;
+    last= now;
+    let next = x.get() + SPEED*dir*dt;
+    const loop = trackRef.current?.scrollwidth/2 || 0; 
+
+  }
 
 
-  
+
 })
 
 
