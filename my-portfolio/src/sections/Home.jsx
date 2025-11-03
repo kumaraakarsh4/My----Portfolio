@@ -154,7 +154,7 @@ return() => clearTimeout(timeout);
             
             
             >
-            <a href="Projects"
+            <a href="#projects"
             className="px-6 py-3 rounded-full font-medium text-lg text-white
              bg-gradient-to-r from-[#1cd8d2] via-[#00bf8f] to-[#302b63]
              shadow-lg hover:scale-105 transition-all"

@@ -57,7 +57,7 @@ export default function ContactForm() {
 
     return (
         // 🟢 FIX 2A: Added 'relative' to the section container
-        <section className="bg-black text-white min-h-screen py-16 relative overflow-hidden"> 
+        <section id="contact" className="bg-black text-white min-h-screen py-16 relative overflow-hidden"> 
             
             {/* 🟢 FIX 2B, 2C & 3: Glow/Blur Effect Container */}
             <div className="absolute inset-0">

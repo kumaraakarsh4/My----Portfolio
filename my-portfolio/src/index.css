@@ -13,4 +13,6 @@ h1 ,  h2 {
         background: linear-gradient(-45deg , #302b63 , #00bf8f, #1cd8d2);
     }
 }
-
+html {
+  scroll-behavior: smooth; /* ⬅️ This enables the smooth animation */
+}
