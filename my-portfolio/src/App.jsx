@@ -23,7 +23,7 @@ export default function App(){
 
     <div className="realtive gradient text-white">
       <CustomCursor/>
-      {/* <ParticlesBackground/> */}
+       <ParticlesBackground/> 
       <Navbar/>
       <Home/>
       <About/>
