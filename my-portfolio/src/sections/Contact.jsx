@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
-import { motion } from 'framer-motion'; // 🟢 FIX 1: Added motion import
+import { motion } from 'framer-motion';
 // IMPORTANT: Replace this path with the actual path to your astronaut image
-import astronautImage from '../assets/Astra.png'; 
+import astronautImage from '../assets/Astra.png';
 import ParticlesBackground from "../components/ParticlesBackground";
 
 // --- EmailJS Configuration ---
@@ -19,6 +19,28 @@ const glowVariants = {
     transition : {type: "spring" , stiffness: 300 , damping :15}
   },
   tap: {scale: 0.95 , y: 0 , transition : {duration:0.08}}
+};
+
+// --- Framer Motion Variants for Astronaut Floating Animation (Faster & Greater Distance) ---
+const floatVariants = {
+    // Defines the animation loop
+    float: {
+        y: [0, -30, 0], // Move up 30px, then back to 0 (Greater distance)
+        rotate: [0, 1, -1, 0], // Subtle rotation
+        transition: {
+            y: {
+                duration: 4, // Faster speed (4 seconds)
+                ease: "easeInOut",
+                repeat: Infinity,
+                repeatType: "reverse",
+            },
+            rotate: {
+                duration: 10,
+                ease: "linear",
+                repeat: Infinity,
+            }
+        }
+    }
 };
 
 
@@ -56,36 +78,50 @@ export default function ContactForm() {
     };
 
     return (
-        // 🟢 FIX 2A: Added 'relative' to the section container
-        <section id="contact" className="bg-black text-white min-h-screen py-16 relative overflow-hidden"> 
-            
-            {/* 🟢 FIX 2B, 2C & 3: Glow/Blur Effect Container */}
+        // Section is relative to contain the absolute particles background
+        <section id="contact" className="bg-black text-white min-h-screen py-16 relative overflow-hidden">
+
+            {/* Glow/Blur Effect Container (z-20) */}
             <div className="absolute inset-0">
-                <div 
+                <div
                     className="absolute -top-32 -left-32
-                    w-[70vw] sm:w-[50vw] md:w-[40vw]
-                    h-[70vw] sm:h-[50vw] md:h-[40vw]
-                    max-w-[500px] max-h-[500px]
-                    rounded-full
+                    w-[70vw] sm:w-[50vw] md:w-[40vw] h-[70vw] sm:h-[50vw] md:h-[40vw]
+                    max-w-[500px] max-h-[500px] rounded-full
                     bg-gradient-to-r from-[#302b63] via-[#00bf8f] to-[#1cd8d2]
                     opacity-30 sm:opacity-20 md:opacity-10
                     blur-[100px] sm:blur-[130px] md:blur-[150px]
-                    animate-pulse z-20" // z-20 keeps it below the content
+                    animate-pulse z-20"
                 ></div>
             </div>
 
-            {/* 🟢 Particles Background Layer (z-index 1) */}
+            {/* Particles Background Layer (z-1) */}
             <ParticlesBackground />
-            
-            {/* 🟢 FIX 2B: Main Content Container (z-index 10) */}
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center relative z-10"> 
-                
-                {/* --- Left Column: Contact Form --- */}
-                <div className="w-full lg:w-1/2 p-4"> 
+
+            {/* Main Content Container (z-10) */}
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center relative z-10">
+
+                {/* 1. --- Left Column: Astronaut Illustration --- */}
+                <div className="w-full lg:w-1/2 p-4 flex justify-center lg:justify-start relative">
+                    <motion.img 
+                        src={astronautImage}
+                        alt="Astronaut playing guitar on the moon"
+                        // Size changed to max-w-md
+                        className="relative w-full max-w-lg z-10 hidden lg:block" 
+                        style={{ filter: 'drop-shadow(0 0 15px rgba(120, 120, 255, 0.4))' }}
+                        variants={floatVariants}
+                        animate="float"
+                    />
+                </div>
+
+                {/* 2. --- Right Column: Contact Form (With Border and Background) --- */}
+                <div 
+                    className="w-full lg:w-1/2 p-8 rounded-lg 
+                    bg-black/30 border border-gray-700/50 backdrop-blur-sm" // ADDED: bg-black/30, border, and backdrop-blur
+                > 
                     <h2 className="text-4xl font-bold text-white mb-8">Let's Work Together</h2>
-                    
+
                     <form ref={form} onSubmit={sendEmail} className="space-y-4">
-                        
+
                         {/* 1. Name Input */}
                         <div>
                             <label htmlFor="user_name" className="block text-gray-300 mb-1 font-semibold">*Your Name</label>
@@ -117,7 +153,7 @@ export default function ContactForm() {
                                 <option className="bg-[#1d1d27] text-white" value="Consulting">Consulting</option>
                             </select>
                         </div>
-                        
+
                         {/* 4. Budget Input */}
                         <div>
                             <label htmlFor="budget" className="block text-gray-300 mb-1 font-semibold">Your Budget</label>
@@ -150,16 +186,6 @@ export default function ContactForm() {
                         </motion.button>
                     </form>
                     {renderStatusMessage()}
-                </div>
-
-                {/* --- Right Column: Astronaut Illustration --- */}
-                <div className="w-full lg:w-1/2 p-4 flex justify-center lg:justify-end relative"> 
-                    <img
-                        src={astronautImage}
-                        alt="Astronaut playing guitar on the moon"
-                        className="relative w-full max-w-sm z-10 hidden lg:block"
-                        style={{ filter: 'drop-shadow(0 0 15px rgba(120, 120, 255, 0.4))' }}
-                    />
                 </div>
             </div>
         </section>
