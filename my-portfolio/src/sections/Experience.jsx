@@ -113,7 +113,7 @@ export default function Experience() {
 
 
   return (
-    <div className="bg-black min-h-screen text-white pt-20 pb-40">
+    <div id='experience' className="bg-black min-h-screen text-white pt-20 pb-40">
       <h2 className="text-5xl font-bold text-center mb-16">Experience</h2>
       
       {/* Scrollable Container (Defines the total vertical scroll area) */}

@@ -14,19 +14,19 @@ const social = [
 
 ]
 const glowVariants = {
-  initial : {scale:1 , y:0 , filter : "drop-shadow(0 0 rgba(0,0,0,0))"},
-  hover: {
-    scale: 1.2 , y: -3 ,
-    filter: "drop-shadow(0 0 8px rgba(13,88,204,0.9)) drop-shadow(0 0 18px rgba(16,185,129,0.8))",
-    transition : {type: "spring" , stiffness: 300 , damping :15}
-  },
-  tap: {scale: 0.95 , y: 0 , transition : {duration:0.08}}
+  initial : {scale:1 , y:0 , filter : "drop-shadow(0 0 rgba(0,0,0,0))"},
+  hover: {
+    scale: 1.2 , y: -3 ,
+    filter: "drop-shadow(0 0 8px rgba(13,88,204,0.9)) drop-shadow(0 0 18px rgba(16,185,129,0.8))",
+    transition : {type: "spring" , stiffness: 300 , damping :15}
+  },
+  tap: {scale: 0.95 , y: 0 , transition : {duration:0.08}}
 }
 
 
 export default function Home(){
 
-  const roles = useMemo(()=>["Full stack Web Developer" , " Software Developer  "],[])
+  const roles = useMemo(()=>["Full stack Web Developer" , " Software Developer  "],[])
 const [index , setIndex] = React.useState(0);
 const  [subIndex , setSubIndex] = React.useState(0);
 const  [deleting , setDeleting] = React.useState(false);
@@ -34,18 +34,15 @@ const  [deleting , setDeleting] = React.useState(false);
 React.useEffect(()=>{
 const current = roles[index];
 const timeout = setTimeout(()=>{
-  // to check the word is typing if current length is greater 
+ 
 if(!deleting && subIndex < current.length) setSubIndex(v => v+1);
-// this line give time to rewrite the roles between two roles
+
  else if(!deleting && subIndex === current.length) setTimeout(()=> setDeleting(true),1200);
- // this line is for checking that jab tak zero na ho jai tab tak word delete hoata rahe
+
  else if(deleting && subIndex > 0 ) setSubIndex(v => v-1);
- else if(deleting && subIndex === 0 ) {setDeleting(false); setIndex(p => (p+1) % roles.length);}
-
-
-
-
-} , deleting ? 40:60)
+ else if(deleting && subIndex === 0 ) {setDeleting(false); setIndex(p => (p+1) % roles.length);
+}
+}, deleting ? 40:60)
 
 return() => clearTimeout(timeout);
 
@@ -158,16 +155,18 @@ return() => clearTimeout(timeout);
             
             >
             <a href="#projects"
-            className="px-6 py-3 rounded-full font-medium text-lg text-white
-             bg-gradient-to-r from-[#1cd8d2] via-[#00bf8f] to-[#302b63]
-             shadow-lg hover:scale-105 transition-all"
+                // FIX APPLIED HERE: Added inline-flex and styling for gradient display
+              className="px-6 py-3 rounded-full font-medium text-lg text-white inline-flex items-center justify-center 
+              bg-gradient-to-r from-[#1cd8d2] via-[#00bf8f] to-[#302b63]
+              shadow-lg hover:scale-105 transition-all"
             
             >View My Work</a>
             <a href="/Aakarsh Kumar.pdf"
             download 
-            className="px-6 py-3 rounded-full font-medium text-lg text-white
-             bg-gradient-to-r from-[#a3bdbc] via-[#1b16c4] to-[#5f5b8d]
-             shadow-lg hover:scale-105 transition-all"
+                // FIX APPLIED HERE: Added inline-flex and styling for gradient display
+              className="px-6 py-3 rounded-full font-medium text-lg text-white inline-flex items-center justify-center
+              bg-gradient-to-r from-[#a3bdbc] via-[#1b16c4] to-[#5f5b8d]
+              shadow-lg hover:scale-105 transition-all"
             
             
             >My resume</a>
