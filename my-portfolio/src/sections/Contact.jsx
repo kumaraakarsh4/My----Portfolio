@@ -142,7 +142,7 @@ export default function ContactForm() {
 
                         {/* 3. Service Needed Dropdown */}
                         <div>
-                            <label htmlFor="service_needed" className="block text-gray-300 mb-1 font-semibold">*Service Needed</label>
+                            <label htmlFor="service_needed" className="block text-gray-300 mb-1 font-semibold">*Work Together</label>
                             <select
                                 id="service_needed" name="service_needed" required
                                 className="w-full px-4 py-3 bg-[#1d1d27] border border-gray-700 rounded-md text-white focus:ring-blue-500 focus:border-blue-500 appearance-none transition duration-200"
@@ -155,13 +155,7 @@ export default function ContactForm() {
                         </div>
 
                         {/* 4. Budget Input */}
-                        <div>
-                            <label htmlFor="budget" className="block text-gray-300 mb-1 font-semibold">Your Budget</label>
-                            <input
-                                type="text" id="budget" name="budget" placeholder="Enter your budget"
-                                className="w-full px-4 py-3 bg-[#1d1d27] border border-gray-700 rounded-md text-white placeholder-gray-500 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
-                            />
-                        </div>
+                      
 
                         {/* 5. Idea/Description Textarea */}
                         <div>
